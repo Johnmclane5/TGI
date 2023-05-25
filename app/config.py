@@ -12,19 +12,16 @@ load_dotenv()
 
 log = logging.getLogger(__name__)
 
-if not exists('./userdata/botconfig.env'):
-    CONFIG_FILE_URL = environ.get("CONFIG_FILE_URL", False)
-    if CONFIG_FILE_URL and str(CONFIG_FILE_URL).startswith("http"):
-        LOGGER.info(f"🔶Downloading Config File From URL {CONFIG_FILE_URL}")
-        system(f"wget -O config.env {str(CONFIG_FILE_URL)}")
-    if exists('config.env'):
-        LOGGER.info(f"🔶Importing Config File")
-        load_dotenv('config.env')
-else:
-    LOGGER.info(f"🔶Importing Bot Config File")
-    env_dict = dict(dotenv_values("./userdata/botconfig.env"))
-    for key in env_dict:
-        environ[key] = str(env_dict[key])
+"""
+CONFIG_FILE_URL = os.environ.get("CONFIG_FILE_URL", None)
+
+if CONFIG_FILE_URL:
+    if os.path.exists(".env"):
+        os.remove(".env")
+    wget.download(CONFIG_FILE_URL, out=".env")
+    print("\n")
+    load_dotenv()
+"""
 
 try:
     port = int(os.environ.get("PORT", "8080"))
