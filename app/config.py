@@ -12,7 +12,6 @@ load_dotenv()
 
 log = logging.getLogger(__name__)
 
-"""
 CONFIG_FILE_URL = os.environ.get("CONFIG_FILE_URL", None)
 
 if CONFIG_FILE_URL:
@@ -20,9 +19,11 @@ if CONFIG_FILE_URL:
         os.remove(".env")
     wget.download(CONFIG_FILE_URL, out=".env")
     print("\n")
-    load_dotenv()
-"""
-
+    load_dotenv(dotenv_path=".env")
+else:
+    print("Please provide the CONFIG_FILE_URL environment variable to specify the configuration file")
+    sys.exit(1)
+    
 try:
     port = int(os.environ.get("PORT", "8080"))
 except Exception as e:
